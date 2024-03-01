@@ -1,0 +1,134 @@
+{
+  "lists": [
+    {
+      "id": "e8b021a2-e8ff-4c76-a2c6-c3c88a921164",
+      "title": "TO DO",
+      "cards": []
+    },
+    {
+      "id": "4887fe30-14c9-4c14-9f58-e1ba55b3e15d",
+      "title": "IN PROGRESS",
+      "cards": [
+        {
+          "id": "58664902-d052-4189-bd6e-8dbbc2127c9d",
+          "listId": "4887fe30-14c9-4c14-9f58-e1ba55b3e15d",
+          "title": "Implementar en Docker",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "0a828356-5b91-43e6-b918-4a02e4dc9acb",
+      "title": "TEST",
+      "cards": [
+        {
+          "id": "e76a50e8-8ce6-4a2a-8baf-f255af470fc1",
+          "listId": "0a828356-5b91-43e6-b918-4a02e4dc9acb",
+          "title": "Aplicar diseño llamativo usando estilos CSS",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "67b4029d-443c-4105-be47-60d6333941d4",
+          "listId": "0a828356-5b91-43e6-b918-4a02e4dc9acb",
+          "title": "Implementar la lógica para verificar el resultado del juego (ganador o empate)",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": "c2c85448-b668-4ede-b745-02f673f67ef2",
+      "title": "DONE",
+      "cards": [
+        {
+          "id": "0a26e998-b863-4489-8396-5e85e4b5000f",
+          "listId": "c2c85448-b668-4ede-b745-02f673f67ef2",
+          "title": "Crear pantalla de inicio con formulario para los nombres de jugadores",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "b10df868-948f-4e37-adc9-e64871cc308c",
+          "listId": "c2c85448-b668-4ede-b745-02f673f67ef2",
+          "title": "Crear la pantalla de juego con un tablero interactivo",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "450450f9-54c6-470a-80b6-3505f28ee608",
+          "listId": "c2c85448-b668-4ede-b745-02f673f67ef2",
+          "title": "\tCrear indicadores visuales para el turno actual",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "e7a5e4e5-1a43-41ef-9b33-1a340b86b477",
+          "listId": "c2c85448-b668-4ede-b745-02f673f67ef2",
+          "title": "Implementar la lógica de alternancia de turnos",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "614a6cb8-b5b3-479a-815d-f2188abb213f",
+          "listId": "c2c85448-b668-4ede-b745-02f673f67ef2",
+          "title": "Crear funcionalidad para reiniciar el juego",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "7b38b829-2044-474c-8a5e-ded638309750",
+          "listId": "c2c85448-b668-4ede-b745-02f673f67ef2",
+          "title": "Crear funcionalidad para ir al menú principal",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "97927096-8819-4e3b-8e85-b524f954aa82",
+          "listId": "c2c85448-b668-4ede-b745-02f673f67ef2",
+          "title": "Crear funcionalidad para salir del juego",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
+    }
+  ],
+  "archive": {
+    "lists": [],
+    "cards": [
+      {
+        "id": "b1d0c96b-a172-4e5b-8336-b2ae72e6c6a7",
+        "listId": "e8b021a2-e8ff-4c76-a2c6-c3c88a921164",
+        "title": "La aplicación debe ser dockerizada y funcionar correctamente en un contenedor",
+        "description": "",
+        "labels": [],
+        "checkboxes": [],
+        "comments": []
+      }
+    ]
+  },
+  "settings": {
+    "labels": []
+  }
+}
