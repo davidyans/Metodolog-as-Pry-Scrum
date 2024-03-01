@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎮 Super Tic Tac Toe 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0a2e02;
+            /* Un fondo oscuro que combina con el verde */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            flex-direction: column;
+            background: radial-gradient(circle, rgba(2, 36, 2, 1) 0%, rgba(9, 121, 9, 1) 35%, rgba(0, 255, 0, 1) 100%);
+        }
+
+
+        h2 {
+            font-family: "Press Start 2P", cursive;
+            color: #ffdd00;
+            text-shadow: 2px 2px #000;
+            margin: 20px 0;
+        }
+
+        #main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #game-info {
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            background: #222;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            border: 2px solid #555;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            color: #eee;
+            font-family: "Press Start 2P", cursive;
+        }
+
+        .cell:not(.taken):hover {
+            transform: scale(1.1);
+            background-color: #333;
+        }
+
+        .cell.taken {
+            pointer-events: none;
+            background-color: #555;
+        }
+
+        #status,
+        #player-scores {
+            font-size: 1.2em;
+            margin: 10px 0;
+            font-family: "Press Start 2P", cursive;
+            color: #ffdd00;
+            text-shadow: 1px 1px #000;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: "Press Start 2P", cursive;
+            margin: 5px;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: flex;
+            position: fixed;
+            z-index: 10;
+            /* Asegurarse de que tiene un z-index suficientemente alto para estar sobre otros elementos */
+            left: 0;
+            top: 0;
+            right: 0;
+            /* Agregar right y bottom para asegurarse de que el modal ocupe toda la pantalla */
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            /* Agregar auto a overflow para manejar el contenido que excede la pantalla */
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            /* Centrar verticalmente */
+            justify-content: center;
+            /* Centrar horizontalmente */
+        }
+
+        .modal-content {
+            background-color: #202020;
+            border: 2px solid #00ff00;
+            /* Borde con color llamativo */
+            width: auto;
+            max-width: 500px;
+            /* Ajuste del ancho máximo para mayor visibilidad */
+            color: #fff;
+            border-radius: 20px;
+            /* Bordes redondeados para un look moderno */
+            box-shadow: 0 0 20px #00ff00;
+            /* Sombra exterior para efecto "glow" */
+            padding: 40px;
+            /* Aumento del padding para más espacio interior */
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            /* Asegurándose de que la tipografía sea coherente */
+        }
+
+        .modal-content label {
+            display: block;
+            margin: 20px 0;
+            /* Espaciado entre etiquetas y campos de texto */
+            color: #00ff00;
+            /* Color de fuente para hacerlo destacar */
+            text-shadow: 0 0 5px #00ff00;
+            /* Sombra de texto para efecto "glow" */
+            font-size: 1.2em;
+            /* Aumento del tamaño de fuente para mayor legibilidad */
+        }
+
+        .modal-content input[type="text"] {
+            width: calc(100% - 20px);
+            /* Ajuste del ancho para que se vea bien en el modal */
+            padding: 10px;
+            /* Padding para hacer los campos de texto más cómodos al escribir */
+            margin-top: 5px;
+            /* Espaciado superior para separar del label */
+            border: 1px solid #00ff00;
+            /* Borde con color llamativo */
+            background-color: #000;
+            /* Fondo oscuro para resaltar el texto */
+            color: #fff;
+            /* Texto en color claro para contraste */
+            border-radius: 10px;
+            /* Bordes redondeados */
+            outline: none;
+            /* Eliminar el outline al enfocar */
+        }
+
+        .modal-content input[type="submit"] {
+            background-color: #00ff00;
+            /* Botón con color llamativo */
+            color: #000;
+            /* Texto en color oscuro para contraste */
+            border: none;
+            border-radius: 10px;
+            /* Bordes redondeados */
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            /* Cursor a mano para indicar acción */
+            box-shadow: 0 0 10px #00ff00;
+            /* Sombra exterior para efecto "glow" */
+            margin-top: 20px;
+            /* Espaciado superior para separar de los campos de texto */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Transición suave al cambiar colores */
+        }
+
+        .modal-content input[type="submit"]:hover {
+            background-color: #000;
+            /* Invertir colores al pasar el ratón */
+            color: #00ff00;
+            box-shadow: 0 0 15px #00ff00;
+            /* Aumentar el "glow" al pasar el ratón */
+        }
+
+        footer {
+            color: #aaa;
+            font-size: 0.75em;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .winner-message,
+        .draw-message {
+            font-family: "Press Start 2P", cursive;
+            font-size: 1em;
+            color: #4caf50;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-container">
+        <h2>🎮 Super Tic Tac Toe 🚀</h2>
+        <div id="game-info">
+            <div id="player-scores">Scores will appear here</div>
+            <button id="restart-btn" class="button">Restart Game</button>
+            <button id="exit-btn" class="button">Exit Game</button>
+        </div>
+        <div id="game-board"></div>
+        <footer>© 2024 Super TTT Corp. All rights reserved.</footer>
+    </div>
+
+    <div id="playerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="nameForm">
+                <label for="playerX">Player 1 (X) Name:</label>
+                <input type="text" id="playerX" name="playerX" required />
+                <label for="playerO">Player 2 (O) Name:</label>
+                <input type="text" id="playerO" name="playerO" required />
+                <input type="submit" class="button" value="Start Game" />
+            </form>
+        </div>
+    </div>
+
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <div id="resultMessage" class="winner-message"></div>
+            <button id="continue-btn" class="button">OK</button>
+        </div>
+    </div>
+
+    <script>
+        let playerNames = { X: "", O: "" };
+        let scores = { X: 0, O: 0 };
+        const gameBoard = document.getElementById("game-board");
+        const statusDiv = document.createElement("div");
+        statusDiv.id = "status";
+        document
+            .getElementById("game-info")
+            .insertBefore(statusDiv, document.getElementById("player-scores"));
+        const restartBtn = document.getElementById("restart-btn");
+        const exitBtn = document.getElementById("exit-btn");
+        const playerScoresDiv = document.getElementById("player-scores");
+        const playerModal = document.getElementById("playerModal");
+        const nameForm = document.getElementById("nameForm");
+        const resultModal = document.getElementById("resultModal");
+        const resultMessage = document.getElementById("resultMessage");
+        const continueBtn = document.getElementById("continue-btn");
+
+        let currentPlayer = "X";
+        let gameOver = false;
+
+        function showModal(modal) {
+            // Primero, cierra cualquier otro modal abierto
+            hideModal(playerModal);
+            hideModal(resultModal);
+            // Luego, muestra el modal deseado
+            modal.style.display = "flex";
+        }
+
+        function hideModal(modal) {
+            modal.style.display = "none";
+        }
+
+
+        function initBoard() {
+            gameBoard.innerHTML = "";
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.addEventListener("click", cellClicked, { once: true });
+                gameBoard.appendChild(cell);
+            }
+            restartBtn.addEventListener("click", restartGame);
+            exitBtn.addEventListener("click", function () {
+                scores = { X: 0, O: 0 };
+                playerNames = { X: "", O: "" };
+                showModal(playerModal);
+            });
+            updateStatus();
+            showScores();
+        }
+
+        function cellClicked(event) {
+            if (gameOver) return;
+
+            const cell = event.target;
+            cell.textContent = currentPlayer;
+            cell.classList.add("taken");
+
+            if (checkWin(currentPlayer)) {
+                gameOver = true;
+                resultMessage.textContent = `${playerNames[currentPlayer]} (${currentPlayer}) wins!`;
+                showModal(resultModal);
+            } else if (checkDraw()) {
+                gameOver = true;
+                resultMessage.textContent = "It's a draw!";
+                showModal(resultModal);
+            } else {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                updateStatus();
+            }
+        }
+
+        continueBtn.onclick = function () {
+            // Verificar si el juego ha terminado y quién es el ganador para actualizar los puntajes
+            if (gameOver && checkWin(currentPlayer)) { // Asegurarse de que haya un ganador antes de incrementar el puntaje
+                scores[currentPlayer]++;
+                showScores(); // Mostrar los puntajes actualizados
+            }
+
+            gameOver = false;
+            currentPlayer = "X"; // Restablecer al jugador inicial
+            hideModal(resultModal); // Ocultar el modal de resultado
+            initBoard(); // Reiniciar el tablero para una nueva partida
+        };
+
+        function updateStatus() {
+            statusDiv.textContent = `${playerNames[currentPlayer]}'s (${currentPlayer}) turn`;
+        }
+
+        function restartGame() {
+            gameOver = false;
+            currentPlayer = "X";
+            initBoard();
+        }
+
+        function checkWin(player) {
+            const winPatterns = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ];
+
+            const cells = [...gameBoard.children];
+            return winPatterns.some((pattern) => {
+                return pattern.every((index) => {
+                    return cells[index].textContent === player;
+                });
+            });
+        }
+
+        function checkDraw() {
+            return [...gameBoard.children].every((cell) => {
+                return cell.classList.contains("taken");
+            });
+        }
+
+        function showScores() {
+            playerScoresDiv.textContent = `Scores: ${playerNames.X}: ${scores.X} | ${playerNames.O}: ${scores.O}`;
+        }
+
+        window.onload = function () {
+            showModal(playerModal);
+            document.getElementsByClassName("close")[0].onclick = function () {
+                hideModal(playerModal);
+            };
+            nameForm.onsubmit = function (event) {
+                event.preventDefault();
+                playerNames.X = document.getElementById("playerX").value;
+                playerNames.O = document.getElementById("playerO").value;
+                hideModal(playerModal);
+                initBoard();
+            };
+        };
+    </script>
+</body>
+
+</html>
